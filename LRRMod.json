@@ -1,0 +1,15 @@
+{
+  "id": "LRRMod",
+  "name": "LRRMod",
+  "display_name": "LRR Mod",
+  "author": ["Pryanik"],
+  "description": "This is a mod dedicated to the Low Refresh Rate Geometry Dash community, adds plenty of new jokers related to members of the community, enjoy!",
+  "prefix": "lrr",
+  "prefixcomment":"ABOVE PREFIX IS ADDED TO E.G. LOCALIZATION!",
+  "main_file": "LRRMod.lua",
+  "priority": 0,
+  "badge_colour": "33ccf2",
+  "badge_text_colour": "",
+  "version": "1.0.0",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-0614a)"]
+}
