@@ -983,11 +983,11 @@ SMODS.Joker{
             for k, v in ipairs(context.scoring_hand) do
                 if not v.shattered and v.ability.name == "Glass Card" then 
                     card.ability.extra.x_mult = card.ability.extra.x_mult + 0.2
-                    return {
-                        extra = { focus = card, message = "Amen", colour = G.C.MULT, sound = 'lrr_bell'}
-                    }
-                 end
+                end
             end
+            return {
+                extra = { focus = card, message = "Amen", colour = G.C.MULT, sound = 'lrr_bell'}
+            }
         end
     end;
 
