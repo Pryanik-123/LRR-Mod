@@ -295,7 +295,7 @@ SMODS.Joker{
     calculate = function(self,card,context)
         if context.discard and context.other_card:get_id() == 12 and (not context.blueprint) then
             if not context.other_card.debuff then
-                card.ability.extra.mult = card.ability.extra.mult + 1
+                card.ability.extra.mult = card.ability.extra.mult + 2
                 return {
                     message = 'Bye Bye Queen',
                     card = card,
@@ -982,7 +982,7 @@ SMODS.Joker{
         if context.after and (not context.blueprint) then
             for k, v in ipairs(context.scoring_hand) do
                 if not v.shattered and v.ability.name == "Glass Card" then 
-                    card.ability.extra.x_mult = card.ability.extra.x_mult + 0.1
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + 0.2
                     return {
                         extra = { focus = card, message = "Amen", colour = G.C.MULT, sound = 'lrr_bell'}
                     }
@@ -1161,7 +1161,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "donut",                                  
-    config = { extra = {dollars = 2} },                
+    config = { extra = {dollars = 3} },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 1,                                        
@@ -1290,7 +1290,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "lobster",                                  
-    config = { extra = { x_chips = 1.5 } },                
+    config = { extra = { x_chips = 1.75 } },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 1,                                        
@@ -1456,7 +1456,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "cooper",                                  
-    config = { extra = { x_mult = 1.5} },                
+    config = { extra = { x_mult = 2} },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 3,                                        
@@ -1542,7 +1542,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "vipervenom",                                  
-    config = { extra = { dollars = 4} },                
+    config = { extra = { dollars = 5} },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 2,                                        
@@ -1558,13 +1558,7 @@ SMODS.Joker{
 
     calculate = function(self,card,context)
         if context.individual and context.cardarea == G.play then
-            local cards = 0
-            for k, v in ipairs(context.scoring_hand) do
-                if v.seal == "lrr_hrr_seal" then 
-                    cards = cards + 1
-                end
-            end
-            if cards == #G.play.cards then
+            if context.other_card.seal == "lrr_hrr_seal" then
                 return{
                     dollars = card.ability.extra.dollars,
                     card = card
@@ -1574,7 +1568,7 @@ SMODS.Joker{
     end;
 
     loc_vars = function(self, info_queue, card)
-        return { vars = {} }
+        return { vars = { card.ability.extra.dollars} }
     end
 }
 
@@ -1836,7 +1830,7 @@ SMODS.Joker{
     atlas = 'jude',                                
 
     calculate = function(self,card,context)
-        if context.after and context.cardarea == G.jokers and (not context.blueprint) then
+        if (context.after or context.pre_discard) and context.cardarea == G.jokers and (not context.blueprint) then
             card.ability.extra.current_hands = card.ability.extra.current_hands + 1
                 return {
                     message = 'Bromega',

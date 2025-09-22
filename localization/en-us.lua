@@ -49,7 +49,7 @@ return {
             j_lrr_hombie = {
                 name = "HombieBearCat",
                 text = {
-                    "{C:red}+1{} Mult for each",
+                    "{C:red}+2{} Mult for each",
                     "discarded {C:attention}Queen{}", 
                     "{C:inactive}(Currently {C:red}+#1#{} {C:inactive}Mult)",
                     "{C:inactive}(Now THIS is PROPER SCRAN)"
@@ -179,7 +179,7 @@ return {
             j_lrr_raptor = {
                 name = "ElectroRaptor71",
                 text = {
-                    "This joker gains {X:mult,C:white}X0.1{} Mult everytime",
+                    "This joker gains {X:mult,C:white}X0.2{} Mult everytime",
                     "a scored {C:attention}Glass card{} doesn't break",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
                     "{C:inactive}(May the god be with us)"
@@ -286,11 +286,8 @@ return {
             j_lrr_vipervenom = {
                 name = "ViperVenom95",
                 text = {
-                    "if all cards in your played",
-                    "hand have {X:mult,C:white}HRR{} {C:attention}Seals{}, gives",
-                    "you back all the money",
-                    "you lose from {X:mult,C:white}HRR{} {C:attention}Seals{}",
-                    "and {C:attention}earns{} extra {C:money}$1{}",
+                    "Earn {C:money}$#1#{} for each played",
+                    "card with {X:mult,C:white}HRR{} {C:attention}Seal{}",
                     "{C:inactive}(Fraud)"
                 }
             },
@@ -340,7 +337,7 @@ return {
             j_lrr_jude = {
                 name = "Jude",
                 text = {
-                    "{C:mult}+#1#{} Mult for every hand played",
+                    "{C:mult}+#1#{} Mult for every {C:chips}hand{}{C:attention}/{}{C:mult}discard{}",
                     "{C:inactive}(Currently {C:mult}+#2#{}{}{C:inactive} Mult)",
                     "{C:inactive}(Omega)"
                 }
