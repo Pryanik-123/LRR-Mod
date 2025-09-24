@@ -32,21 +32,24 @@ SMODS.Joker{
     atlas = 'tipito',                                
 
     calculate = function(self,card,context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 3 or context.other_card:get_id() == 6 then
-                if context.other_card.debuff then
-                    return {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED,
-                        card = card,
-                    }
-                else
-                    G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.85)
-                    G.GAME.blind.chip_text = G.GAME.blind.chips
-                    return{
-                        extra = { focus = card, message = "All y'all high refresh players who think Sonic Wave is easier then Erebus, first of all shut the fuck up and 2nd of all of the wave plays by itself for you guys."}
-                    }
+        if context.joker_main and context.cardarea == G.jokers then
+            local three = false
+            local six = false
+            for i = 1, #context.scoring_hand do
+				if context.full_hand[i]:get_id() == 6 then
+                    six = true
                 end
+                if context.full_hand[i]:get_id() == 3 then
+                    three = true
+                end
+            end
+
+            if three and six then
+                G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.9)
+                G.GAME.blind.chip_text = G.GAME.blind.chips
+                return{
+                    extra = { focus = card, message = "All y'all high refresh players who think Sonic Wave is easier then Erebus, first of all shut the fuck up and 2nd of all of the wave plays by itself for you guys."}
+                }
             end
         end
     end;

@@ -4,8 +4,8 @@ return {
             j_lrr_tipito = {
                 name = "Tipito",
                 text = {
-                    "Damages blinds by {C:green}15%{} for",
-                    "each scored {C:attention}3{} or {C:attention}6{}",
+                    "Damages blinds by {C:green}10%{} if",
+                    "played hand has {C:attention}3{} and {C:attention}6{}",
                     "{C:inactive} (hugs you for free)"
                 },
             },
