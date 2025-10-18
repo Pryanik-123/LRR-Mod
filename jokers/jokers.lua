@@ -44,7 +44,7 @@ SMODS.Joker{
                 end
             end
 
-            if three and six then
+            if three or six then
                 G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.9)
                 G.GAME.blind.chip_text = G.GAME.blind.chips
                 return{
@@ -67,7 +67,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "hpsk",                                  
-    config = { extra = {x_chips = 1.5, chance = 10, message = "Site is ok", color = G.C.GREEN } },                
+    config = { extra = {x_chips = 1.25, chance = 6, message = "Site is ok", color = G.C.GREEN } },                
     pos = { x = 0, y = 0 },              
     pools = {["LRRmodAddition"] = true},           
     rarity = 3,                                        
@@ -254,7 +254,7 @@ SMODS.Joker{
                 if v:is_suit("Spades") then spades = spades + 1 end
             end
             if spades > 0 then
-                card.ability.extra.x_mult = card.ability.extra.x_mult + spades * 0.5
+                card.ability.extra.x_mult = card.ability.extra.x_mult + spades * 0.25
                  G.E_MANAGER:add_event(Event({
                     func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}}); return true
                     end}))
@@ -385,14 +385,24 @@ SMODS.Joker{
             if context.other_card.seal == "lrr_ulrr_seal" then 
                     return {
                         message = localize("k_again_ex"),
-                        repetitions = 2,
+                        repetitions = 1,
                         card = card,
                     }
             end
         end
 
-        if context.cardarea == G.play and context.individual and #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 and (not context.blueprint) then
-            context.other_card.seal = "lrr_ulrr_seal"
+        if context.cardarea == G.jokers then
+            if context.before then
+                if #G.play.cards == 1 and G.GAME.current_round.hands_played == 0 and (not context.blueprint) then
+                    for k, v in ipairs(context.scoring_hand) do
+                        v.seal = "lrr_ulrr_seal"
+                    end
+                    return{
+                        message = 'I cast degeneracy upon ye',
+                        colour = G.C.PM.PURPLE
+                    }
+                end
+            end
         end
     end;
 
@@ -854,13 +864,16 @@ SMODS.Joker{
         if context.individual and context.cardarea == G.play and context.other_card.ability.name == 'Lucky Card' and (not context.other_card.lucky_trigger) and (not context.blueprint) then
             card.ability.extra.x_mult = card.ability.extra.x_mult + 0.25
             return {
-                extra = { focus = card, message = "Karma", colour = G.C.Red}
+                extra = { focus = card, message = "Patience...", colour = G.C.Red}
             }
         end
         if context.individual and context.other_card.lucky_trigger and (not context.blueprint) then
-            card.ability.extra.x_mult = 1
+            if card.ability.extra.x_mult > 1 then
+                if card.ability.extra.x_mult >= 1.75 then card.ability.extra.x_mult = card.ability.extra.x_mult - 0.75
+                else card.ability.extra.x_mult = card.ability.extra.x_mult - (card.ability.extra.x_mult - 1) end
+            end
             return {
-                extra = { focus = card, message = "Patience...", colour = G.C.Red}
+                extra = { focus = card, message = "Karma", colour = G.C.Red}
             }
 		end
     end;
@@ -1008,7 +1021,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "zeralth",                                  
-    config = { extra = { x_mult = 1.9 } },                
+    config = { extra = { x_mult = 1.9, hasAce, hasNine } },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 1,                                        
@@ -1023,18 +1036,23 @@ SMODS.Joker{
     atlas = 'zeralth',                                
 
     calculate = function(self,card,context)
-        if context.joker_main and context.cardarea == G.jokers then
-            local hasAce, hasNine = false
-            for i = 1, #context.scoring_hand do
-				if context.full_hand[i]:get_id() == 9 then
-                    hasNine = true
+        if context.before then
+            card.ability.extra.hasAce = false 
+            card.ability.extra.hasNine = false
+        end
+        if not context.end_of_round then
+            if context.cardarea == G.hand and context.individual then
+                if context.other_card:get_id() == 9 then
+                    card.ability.extra.hasNine = true
                 end
-                if context.full_hand[i]:get_id() == 14 then
-                    hasAce = true
+                if context.other_card:get_id() == 14 then
+                    card.ability.extra.hasAce = true
                 end
             end
+        end
 
-            if hasNine and hasAce then
+        if context.joker_main and context.cardarea == G.jokers then
+            if card.ability.extra.hasNine and card.ability.extra.hasAce then
                 return{
                     x_mult = card.ability.extra.x_mult,
                     card = card
@@ -1164,11 +1182,11 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "donut",                                  
-    config = { extra = {dollars = 3} },                
+    config = { extra = {current_xmult = 1, xmult = 0.2}},                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
-    rarity = 1,                                        
-    cost = 5,                                        
+    rarity = 2,                                        
+    cost = 8,                                        
     blueprint_compat=true,                             
     eternal_compat=true,        
     perishable_compat = true,                   
@@ -1179,18 +1197,22 @@ SMODS.Joker{
     atlas = 'donut',                                
 
     calculate = function(self,card,context)
-        if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_left == 0 then
-            if context.other_card.seal == "lrr_plus_seal" then
-                return {
-                    dollars = card.ability.extra.dollars,
-                    card = card
-                }
-            end
+        if context.individual and context.cardarea == G.play and (not context.blueprint) then
+            card.ability.extra.current_xmult = card.ability.extra.current_xmult + card.ability.extra.xmult 
+        end
+        if context.joker_main and context.cardarea == G.jokers then
+            return{
+                x_mult = card.ability.extra.current_xmult,
+                card = card
+            }
+        end
+        if context.after then
+            card.ability.extra.current_xmult = 1
         end
     end;
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.dollars } }
+        return { vars = { card.ability.extra.current_xmult, card.ability.extra.xmult } }
     end
 }
 
@@ -1225,7 +1247,7 @@ SMODS.Joker{
                 end
             end
 
-            if sixes == 2 then
+            if sixes > 1 then
                 return{
                     x_chips = card.ability.extra.x_chips,
                     card = card
@@ -1583,7 +1605,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "emerald",                                  
-    config = { extra = { spectral_x_mult = 0.25, tarot_x_mult = 0.1, current_xmult = 1} },                
+    config = { extra = { spectral_x_mult = 0.15, tarot_x_mult = 0.1, current_xmult = 1} },                
     pos = { x = 0, y = 0 },       
     pools = {["LRRmodAddition"] = true},                     
     rarity = 2,                                        

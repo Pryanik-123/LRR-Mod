@@ -7,6 +7,7 @@ G.C.PM = {
     BLUE = HEX("0000FF"),
     GREEN = HEX("00FF00"),
     WHITE = HEX("FFFFFF"),
+    PURPLE = HEX("cc0cf2"),
     TRANSPARENT = HEX("00000000"),
 }
 

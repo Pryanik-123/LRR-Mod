@@ -5,7 +5,7 @@ return {
                 name = "Tipito",
                 text = {
                     "Damages blinds by {C:green}10%{} if",
-                    "played hand has {C:attention}3{} and {C:attention}6{}",
+                    "played hand has {C:attention}3{} or {C:attention}6{}",
                     "{C:inactive} (hugs you for free)"
                 },
             },
@@ -13,7 +13,7 @@ return {
                 name = "Hpsk",
                 text = {
                     "Each played card gives {X:chips,C:white}X#1#{} Chips",
-                    "when scored, {C:green}#2# in 10{} chance to",
+                    "when scored, {C:green}#2# in 6{} chance to",
                     "{C:attention}destroy{} a card after scoring",
                     "{C:inactive}(Cloudflare Error: 1033)"
                 }
@@ -40,7 +40,7 @@ return {
             j_lrr_shrek = {
                 name = "Shrek",
                 text = {
-                    "This joker gains {X:mult,C:white}X0.5{} Mult",
+                    "This joker gains {X:mult,C:white}X0.25{} Mult",
                     "when a {C:spades}Spade{} card is {C:attention}destroyed", 
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)",
                     "{C:inactive}(How hungary?)"
@@ -67,7 +67,7 @@ return {
             j_lrr_pigeons = {
                 name = "P8geons",
                 text = {
-                    "Retrigger all {C:red}ULRR Seals{} twice",
+                    "Retrigger all {C:red}ULRR Seals{}",
                     "If your first hand contains",
                     "{C:attention}only{} one card, applies",
                     "a {C:red}ULRR Seal{} to it",
@@ -153,7 +153,7 @@ return {
                 text = {
                     "This joker gains {X:mult,C:white}X0.25{} Mult everytime",
                     "a scored {C:attention}Lucky card{} doesn't trigger",
-                    "Resets when a {C:attention}Lucky card{} triggers",
+                    "{X:mult,C:white}-X0.75{} Mult when a {C:attention}Lucky card{} triggers",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
                     "{C:inactive}(Never celebrate too early)"
                 }
@@ -188,7 +188,7 @@ return {
             j_lrr_zeralth = {
                 name = "ZeralthGp",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if scored hand",
+                    "{X:mult,C:white}X#1#{} Mult if held hand",
                     "has an {C:attention}Ace{} and a {C:attention}9{}",
                     "{C:inactive}(Bloodbath guy from 1.9)"
                 }
@@ -214,17 +214,18 @@ return {
             j_lrr_donut = {
                 name = "WholeWheatDonut",
                 text = {
-                    "Played cards with {C:green}LRR+ seal{}",
-                    "earn {C:money}$#1#{} when scored on",
-                    "{C:attention}final hand{} of round",
-                    "{C:inactive}(I’m the 75hz zodiac guy)"
+                    "Earn {X:mult,C:white}X#2#{} Mult for",
+                    "each {C:attention}scored{} card",
+                    "{C:attention}resets{} after scoring",
+                    "{C:inactive}(I’m the 75hz zodiac guy)",
+                    "{C:inactive}(Starts with {X:mult,C:white}X1{} {C:inactive}Mult)"
                 }
             },
             j_lrr_cedric = {
                 name = "EliteCedric",
                 text = {
                     "{X:chips,C:white}X#1#{} Chips if scored hand",
-                    "has two {C:inactive}(and not more){} {C:attention}6's",
+                    "has atleast two {C:attention}6's",
                     "{C:inactive}(Swaronia)"
                 }
             },
@@ -337,7 +338,8 @@ return {
             j_lrr_jude = {
                 name = "Jude",
                 text = {
-                    "{C:mult}+#1#{} Mult for every {C:chips}hand{}{C:attention}/{}{C:mult}discard{}",
+                    "{C:mult}+#1#{} Mult for every used",
+                    "{C:chips}hand{}{C:attention}/{}{C:mult}discard{}",
                     "{C:inactive}(Currently {C:mult}+#2#{}{}{C:inactive} Mult)",
                     "{C:inactive}(Omega)"
                 }
