@@ -71,7 +71,7 @@ SMODS.Booster{
         return { vars = { card.ability.choose, card.ability.extra } }
     end,
 
-    weight = 0.69,
+    weight = 0.45,
     cost = 7,
     kind = "LrrPack",
     
