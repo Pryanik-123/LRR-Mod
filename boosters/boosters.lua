@@ -26,8 +26,8 @@ SMODS.Booster{
         return { vars = { card.ability.choose, card.ability.extra } }
     end,
 
-    weight = 0.375,
-    cost = 4,
+    weight = 1,
+    cost = 5,
     kind = "LrrPack",
     
     create_card = function(self, card, i)
@@ -71,8 +71,8 @@ SMODS.Booster{
         return { vars = { card.ability.choose, card.ability.extra } }
     end,
 
-    weight = 0.375,
-    cost = 6,
+    weight = 0.69,
+    cost = 7,
     kind = "LrrPack",
     
     create_card = function(self, card, i)
