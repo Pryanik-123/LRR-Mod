@@ -1481,7 +1481,7 @@ SMODS.Atlas({
 })
 SMODS.Joker{
     key = "cooper",                                  
-    config = { extra = { x_mult = 2} },                
+    config = { extra = { x_mult = 0.2, current_x_mult = 1} },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
     rarity = 3,                                        
@@ -1496,27 +1496,22 @@ SMODS.Joker{
     atlas = 'cooper',                                
 
     calculate = function(self,card,context)
-        if not context.end_of_round then
-            if context.cardarea == G.hand and context.individual and context.other_card.ability.name == 'm_lrr_card' then
-                if context.other_card.debuff then
-                    return {
-                        message = localize('k_debuffed'),
-                        colour = G.C.RED,
-                        card = card,
-                    }
-                else
-                    return {
-                        x_mult = card.ability.extra.x_mult,
-                        card = card
-                    }
-                end
+        if G.playing_cards and (not context.blueprint) then
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.name == 'm_lrr_card' then card.ability.extra.current_x_mult = 1 + card.ability.extra.x_mult end
             end
         end
+        if context.cardarea == G.jokers and context.joker_main then
+            return{
+                x_mult = card.ability.extra.current_x_mult,
+                card = card
+            }
+        end 
     end;
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lrr_card
-        return { vars = {card.ability.extra.x_mult} }
+        return { vars = {card.ability.extra.x_mult, card.ability.extra.current_x_mult} }
     end
 }
 

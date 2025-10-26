@@ -268,9 +268,10 @@ return {
             j_lrr_cooper = {
                 name = "CooperSuper",
                 text = {
-                    "Each {C:attention}LRR card{}",
-                    "held in hand ",
-                    "gives {X:mult,C:white}X#1#{} Mult",
+                    "This joker gains {X:mult,C:white}X#1#{} Mult",
+                    "for each {C:attention}LRR card{}",
+                    "in your {C:attention}full deck",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)",
                     "{C:inactive}(Prisma by CooperSuper)"
                 }
             },
