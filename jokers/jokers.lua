@@ -1484,7 +1484,7 @@ SMODS.Joker{
     config = { extra = { x_mult = 0.2, current_x_mult = 1} },                
     pos = { x = 0, y = 0 },             
     pools = {["LRRmodAddition"] = true},            
-    rarity = 3,                                        
+    rarity = 2,                                        
     cost = 7,                                        
     blueprint_compat=true,                             
     eternal_compat=true,   
