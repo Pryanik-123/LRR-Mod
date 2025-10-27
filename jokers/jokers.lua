@@ -1500,9 +1500,11 @@ SMODS.Joker{
 
     calculate = function(self,card,context)
         if G.playing_cards and (not context.blueprint) then
+            local lrrCards = 0
             for k, v in pairs(G.playing_cards) do
-                if v.ability.name == 'm_lrr_card' then card.ability.extra.current_x_mult = 1 + card.ability.extra.x_mult end
+                if v.ability.name == 'm_lrr_card' then lrrCards = lrrCards + 1 end
             end
+            card.ability.extra.current_x_mult = 1 + card.ability.extra.x_mult * lrrCards
         end
         if context.cardarea == G.jokers and context.joker_main then
             return{
