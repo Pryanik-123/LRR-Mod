@@ -996,14 +996,17 @@ SMODS.Joker{
 			}
 		end
         if context.after and (not context.blueprint) then
+            local glasses = 0
             for k, v in ipairs(context.scoring_hand) do
-                if not v.shattered and v.ability.name == "Glass Card" then 
+                if not v.shattered and v.ability.name == "Glass Card" then
+                    glasses = 1 
                     card.ability.extra.x_mult = card.ability.extra.x_mult + 0.2
                 end
             end
-            return {
+            if glasses == 1 then return {
                 extra = { focus = card, message = "Amen", colour = G.C.MULT, sound = 'lrr_bell'}
             }
+            end
         end
     end;
 
